@@ -7,15 +7,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHolder> {
     private ArrayList<CountryModel> countryModels;
+    private OnItemClick onItemClick;
 
-    public CountryAdapter(ArrayList<CountryModel> countryModels) {
+    public CountryAdapter(ArrayList<CountryModel> countryModels, @Nullable OnItemClick onItemClick) {
         this.countryModels = countryModels;
+        this.onItemClick = onItemClick;
     }
 
     @NonNull
@@ -28,6 +31,12 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(countryModels.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClick != null) onItemClick.onItemClick(position);
+            }
+        });
     }
 
     @Override

@@ -22,7 +22,7 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
         recyclerView = findViewById(R.id.activity_second_recyclerView);
         loadData();
-        recyclerView.setAdapter(new CountryAdapter(countryModels));
+        recyclerView.setAdapter(new CountryAdapter(countryModels, null));
     }
 
     private void loadData() {

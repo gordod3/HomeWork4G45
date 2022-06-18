@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnItemClick {
     private RecyclerView recyclerView;
     private ArrayList<CountryModel> countryModels;
     public final static String MAIN_ACTIVITY_INT_WHAT_IS_CONTINENT = "WhatIsContinent";
@@ -21,10 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         loadData();
         recyclerView = findViewById(R.id.activity_main_recyclerView);
-        recyclerView.setAdapter(new CountryAdapter(countryModels));
-        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-        intent.putExtra(MAIN_ACTIVITY_INT_WHAT_IS_CONTINENT, 2);
-        startActivity(intent);
+        recyclerView.setAdapter(new CountryAdapter(countryModels, this));
     }
 
     private void loadData() {
@@ -35,5 +32,12 @@ public class MainActivity extends AppCompatActivity {
         countryModels.add(new CountryModel(AppCompatResources.getDrawable(this, R.drawable.ic_cna), "CNA"));
         countryModels.add(new CountryModel(AppCompatResources.getDrawable(this, R.drawable.ic_coc), "COC"));
         countryModels.add(new CountryModel(AppCompatResources.getDrawable(this, R.drawable.ic_csa), "CSA"));
+    }
+
+    @Override
+    public void onItemClick(int i) {
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        intent.putExtra(MAIN_ACTIVITY_INT_WHAT_IS_CONTINENT, i);
+        startActivity(intent);
     }
 }
